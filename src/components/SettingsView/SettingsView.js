@@ -28,8 +28,10 @@ const SettingsView = ({
   handleShowNotificationsChange,
   handleUseAlternateEndDayButtonPositionChange,
   handleShowHomeScreenChange,
+  handleAutosaveChange,
   showNotifications,
   useAlternateEndDayButtonPosition,
+  autosave,
   showHomeScreen,
 }) => {
   const [isClearDataDialogOpen, setIsClearDataDialogOpen] = useState(false)
@@ -95,6 +97,17 @@ const SettingsView = ({
               />
             }
             label="Display custom names for cows received from other players"
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                color="primary"
+                checked={autosave}
+                onChange={handleAutosaveChange}
+                name="autosave-game"
+              />
+            }
+            label="Autosave"
           />
         </FormGroup>
       </FormControl>

@@ -442,6 +442,7 @@ export default class Farmhand extends Component {
         [toolType.WATERING_CAN]: toolLevel.DEFAULT,
       },
       useAlternateEndDayButtonPosition: false,
+      autosave: false,
       valueAdjustments: {},
       version: process.env.REACT_APP_VERSION,
     }
@@ -605,6 +606,16 @@ export default class Farmhand extends Component {
           }
         })
       })
+
+      // will continue autosaving the game is autosave is turned on
+      alert(state.autosave)
+      if (state.autosave === true) {
+        let autosaveInterval = setInterval(async () => {
+          await this.persistState()
+          alert('autosaved game')
+        }, 10000)
+        this.setState({ autosaveTimer: autosaveInterval })
+      }
     } else {
       // Initialize new game
       await this.incrementDay(true)

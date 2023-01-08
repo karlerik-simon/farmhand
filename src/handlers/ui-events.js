@@ -412,6 +412,24 @@ export default {
     this.setState({ useAlternateEndDayButtonPosition })
   },
 
+  async handleAutosaveChange(_e, autosave) {
+    this.setState({ autosave: autosave })
+
+    if (autosave === true) {
+      let interval = setInterval(async () => {
+        await this.persistState()
+        alert('autosaved')
+      }, 10000)
+      this.setState({ autosaveTimer: interval })
+    } else {
+      clearInterval(this.state.autosaveTimer)
+      this.setState({ autosaveTimer: null })
+    }
+
+    await this.persistState()
+    alert('saved state')
+  },
+
   handleAllowCustomPeerCowNamesChange(_e, allowCustomPeerCowNames) {
     this.setState({ allowCustomPeerCowNames })
   },
